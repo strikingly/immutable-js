@@ -68,6 +68,12 @@ module.exports = function(grunt) {
   var uglify = require('uglify-js');
 
   grunt.registerMultiTask('bundle', function () {
+    if(process.argv.pop()=='--mini'){
+      this.files.push({
+        src: ['src/Immutable.mini.js'],
+        dest: 'dist/immutable.mini'
+      })
+    }
     var done = this.async();
 
     this.files.map(function (file) {
