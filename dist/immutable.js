@@ -804,9 +804,19 @@ function defaultConverter(k, v) {
   return isKeyed(v) ? v.toMap() : v.toList();
 }
 
+function typeOf(obj) {
+  var objType = Object.prototype.toString.call(obj);
+  if (objType === "[object Object]") {
+    if (obj.constructor && obj.constructor.name) {
+      objType = obj.constructor.name;
+    }
+  }
+  return objType
+}
+
 function isPlainObj(value) {
   return value &&
-    (value.constructor === Object || value.constructor === undefined);
+    (value.constructor === undefined || typeOf(value) === "Object");
 }
 
 var imul = typeof Math.imul === 'function' &&
