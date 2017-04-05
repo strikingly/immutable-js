@@ -393,15 +393,7 @@ mixin(Collection, {
     const keyPath = coerceKeyPath(searchKeyPath);
     let i = 0;
     while (i !== keyPath.length) {
-      if (!nested || !nested.get) {
-        throw new TypeError(
-          'Invalid keyPath: Value at [' +
-            keyPath.slice(0, i).map(quoteString) +
-            '] does not have a .get() method: ' +
-            nested
-        );
-      }
-      nested = nested.get(keyPath[i++], NOT_SET);
+      nested = nested && nested.get ? nested.get(keyPath[i++], NOT_SET) : NOT_SET;
       if (nested === NOT_SET) {
         return notSetValue;
       }
